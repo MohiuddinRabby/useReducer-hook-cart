@@ -5,9 +5,9 @@ export const ProductContext = createContext();
 export const ProductProvider = (props) => {
   //fake products
   const data = fakeData;
-  const [product, setProduct] = useState(data);
+  const [products] = useState(data);
   return (
-    <ProductContext.Provider value={[product,setProduct]}>
+    <ProductContext.Provider value={{ products: [...products] }}>
       {props.children}
     </ProductContext.Provider>
   );

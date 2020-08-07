@@ -1,16 +1,38 @@
 import React, { useContext } from "react";
 import { ProductContext } from "../../global/ProductContext";
-import Product from "../Product/Product";
+import { CartContext } from "../../global/CartContext";
 
 const Shop = () => {
-  const [product, setProduct] = useContext(ProductContext);
-  console.log(product);
+  const { products } = useContext(ProductContext);
+  const { dispatch } = useContext(CartContext);
+  const handleAddtoCart = () => {
+    console.log("handlecart clik");
+  };
   return (
     <div className="container py-5">
-      <div className="row">
-        {product.map((products) => (
-          <div key={products.id} className="col-md-4 py-2">
-            <Product products={products}></Product>
+      <div className="row py-5">
+        {products.map((products) => (
+          <div key={products.id} className="col-md-4 py-3">
+            <img
+              src={products.img}
+              className="img-fluid"
+              style={{ width: "200px", height: "200px" }}
+              alt=""
+            />
+            <h4>{products.name}</h4>
+            <h5>Price: ${products.price}</h5>
+            <button
+              className="btn btn-info"
+              onClick={() =>
+                dispatch({
+                  type: "ADD_TO_CART",
+                  id: products.id,
+                  products,
+                })
+              }
+            >
+              Add to cart
+            </button>
           </div>
         ))}
       </div>
